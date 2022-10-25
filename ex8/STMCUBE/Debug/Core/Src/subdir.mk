@@ -6,8 +6,8 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/clock.c \
-../Core/Src/control_buffer.c \
-../Core/Src/control_led.c \
+../Core/Src/control_clock_buffer.c \
+../Core/Src/control_led_7SEG.c \
 ../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/software_timer.c \
@@ -19,8 +19,8 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/clock.o \
-./Core/Src/control_buffer.o \
-./Core/Src/control_led.o \
+./Core/Src/control_clock_buffer.o \
+./Core/Src/control_led_7SEG.o \
 ./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/software_timer.o \
@@ -32,8 +32,8 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/clock.d \
-./Core/Src/control_buffer.d \
-./Core/Src/control_led.d \
+./Core/Src/control_clock_buffer.d \
+./Core/Src/control_led_7SEG.d \
 ./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/software_timer.d \

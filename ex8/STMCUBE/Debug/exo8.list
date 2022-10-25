@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 000008e8  00000000  00000000  0002aa18  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000164d8  00000000  00000000  0002b300  2**0
+ 16 .debug_macro  000164d4  00000000  00000000  0002b300  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009c29  00000000  00000000  000417d8  2**0
+ 17 .debug_line   00009c50  00000000  00000000  000417d4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081e6f  00000000  00000000  0004b401  2**0
+ 18 .debug_str    00081e85  00000000  00000000  0004b424  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cd270  2**0
+ 19 .comment      00000053  00000000  00000000  000cd2a9  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002730  00000000  00000000  000cd2c4  2**2
+ 20 .debug_frame  00002730  00000000  00000000  000cd2fc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -262,7 +262,7 @@ void updateClockBuffer(){
 
 08000268 <display7SEG>:
  */
-#include "control_led.h"
+#include <control_led_7SEG.h>
 #include "main.h"
 
 

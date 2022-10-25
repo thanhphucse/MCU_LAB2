@@ -1,6 +1,6 @@
 "./Core/Src/clock.o"
-"./Core/Src/control_buffer.o"
-"./Core/Src/control_led.o"
+"./Core/Src/control_clock_buffer.o"
+"./Core/Src/control_led_7SEG.o"
 "./Core/Src/global.o"
 "./Core/Src/main.o"
 "./Core/Src/software_timer.o"

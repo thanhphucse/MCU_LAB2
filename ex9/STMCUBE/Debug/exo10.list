@@ -1,5 +1,5 @@
 
-exo9.elf:     file format elf32-littlearm
+exo10.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  00020034  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00008bb5  00000000  00000000  0002005d  2**0
+ 12 .debug_info   00008b69  00000000  00000000  0002005d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001934  00000000  00000000  00028c12  2**0
+ 13 .debug_abbrev 00001934  00000000  00000000  00028bc6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000a18  00000000  00000000  0002a548  2**3
+ 14 .debug_aranges 00000a18  00000000  00000000  0002a500  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000908  00000000  00000000  0002af60  2**3
+ 15 .debug_ranges 00000908  00000000  00000000  0002af18  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016763  00000000  00000000  0002b868  2**0
+ 16 .debug_macro  0001675f  00000000  00000000  0002b820  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000a69e  00000000  00000000  00041fcb  2**0
+ 17 .debug_line   0000a6c5  00000000  00000000  00041f7f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000821d6  00000000  00000000  0004c669  2**0
+ 18 .debug_str    000821d1  00000000  00000000  0004c644  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000ce83f  2**0
+ 19 .comment      00000053  00000000  00000000  000ce815  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000027b4  00000000  00000000  000ce894  2**2
+ 20 .debug_frame  000027b4  00000000  00000000  000ce868  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -262,7 +262,7 @@ void updateClockBuffer(){
 
 08000268 <display7SEG>:
  */
-#include "control_led.h"
+#include <control_led_7SEG.h>
 #include "main.h"
 
 
@@ -858,11 +858,11 @@ void displayLedMatrix(int row, int col){
  8000690:	af00      	add	r7, sp, #0
  8000692:	6078      	str	r0, [r7, #4]
  8000694:	6039      	str	r1, [r7, #0]
-	int shift = 1;
+	int shift = 1;// mask used to get bit by bit of buffer
  8000696:	2301      	movs	r3, #1
  8000698:	60fb      	str	r3, [r7, #12]
 
-	if(row == 0){
+	if(row == 0){// enable row 0
  800069a:	687b      	ldr	r3, [r7, #4]
  800069c:	2b00      	cmp	r3, #0
  800069e:	f040 80c3 	bne.w	8000828 <displayLedMatrix+0x19c>
@@ -906,7 +906,8 @@ void displayLedMatrix(int row, int col){
  80006f8:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  80006fc:	489c      	ldr	r0, [pc, #624]	; (8000970 <displayLedMatrix+0x2e4>)
  80006fe:	f001 fc3b 	bl	8001f78 <HAL_GPIO_WritePin>
-// BSRR, ODR
+
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8000702:	683b      	ldr	r3, [r7, #0]
  8000704:	b25a      	sxtb	r2, r3
@@ -1048,7 +1049,8 @@ void displayLedMatrix(int row, int col){
  8000822:	4854      	ldr	r0, [pc, #336]	; (8000974 <displayLedMatrix+0x2e8>)
  8000824:	f001 fba8 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 1){
+
+	if(row == 1){// enable row 1
  8000828:	687b      	ldr	r3, [r7, #4]
  800082a:	2b01      	cmp	r3, #1
  800082c:	f040 80c8 	bne.w	80009c0 <displayLedMatrix+0x334>
@@ -1093,6 +1095,7 @@ void displayLedMatrix(int row, int col){
  800088a:	4839      	ldr	r0, [pc, #228]	; (8000970 <displayLedMatrix+0x2e4>)
  800088c:	f001 fb74 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8000890:	683b      	ldr	r3, [r7, #0]
  8000892:	b25a      	sxtb	r2, r3
@@ -1237,7 +1240,8 @@ void displayLedMatrix(int row, int col){
  80009ba:	48a9      	ldr	r0, [pc, #676]	; (8000c60 <displayLedMatrix+0x5d4>)
  80009bc:	f001 fadc 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 2){
+
+	if(row == 2){// enable row 2
  80009c0:	687b      	ldr	r3, [r7, #4]
  80009c2:	2b02      	cmp	r3, #2
  80009c4:	f040 80c3 	bne.w	8000b4e <displayLedMatrix+0x4c2>
@@ -1282,6 +1286,7 @@ void displayLedMatrix(int row, int col){
  8000a22:	4890      	ldr	r0, [pc, #576]	; (8000c64 <displayLedMatrix+0x5d8>)
  8000a24:	f001 faa8 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8000a28:	683b      	ldr	r3, [r7, #0]
  8000a2a:	b25a      	sxtb	r2, r3
@@ -1423,7 +1428,8 @@ void displayLedMatrix(int row, int col){
  8000b48:	4845      	ldr	r0, [pc, #276]	; (8000c60 <displayLedMatrix+0x5d4>)
  8000b4a:	f001 fa15 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 3){
+
+	if(row == 3){// enable row 3
  8000b4e:	687b      	ldr	r3, [r7, #4]
  8000b50:	2b03      	cmp	r3, #3
  8000b52:	f040 80c9 	bne.w	8000ce8 <displayLedMatrix+0x65c>
@@ -1468,6 +1474,7 @@ void displayLedMatrix(int row, int col){
  8000bb0:	482c      	ldr	r0, [pc, #176]	; (8000c64 <displayLedMatrix+0x5d8>)
  8000bb2:	f001 f9e1 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8000bb6:	683b      	ldr	r3, [r7, #0]
  8000bb8:	b25a      	sxtb	r2, r3
@@ -1613,7 +1620,8 @@ void displayLedMatrix(int row, int col){
  8000ce2:	4896      	ldr	r0, [pc, #600]	; (8000f3c <displayLedMatrix+0x8b0>)
  8000ce4:	f001 f948 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 4){
+
+	if(row == 4){// enable row 4
  8000ce8:	687b      	ldr	r3, [r7, #4]
  8000cea:	2b04      	cmp	r3, #4
  8000cec:	f040 80c3 	bne.w	8000e76 <displayLedMatrix+0x7ea>
@@ -1658,6 +1666,7 @@ void displayLedMatrix(int row, int col){
  8000d4a:	487d      	ldr	r0, [pc, #500]	; (8000f40 <displayLedMatrix+0x8b4>)
  8000d4c:	f001 f914 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8000d50:	683b      	ldr	r3, [r7, #0]
  8000d52:	b25a      	sxtb	r2, r3
@@ -1799,7 +1808,8 @@ void displayLedMatrix(int row, int col){
  8000e70:	4832      	ldr	r0, [pc, #200]	; (8000f3c <displayLedMatrix+0x8b0>)
  8000e72:	f001 f881 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 5){
+
+	if(row == 5){// enable row 5
  8000e76:	687b      	ldr	r3, [r7, #4]
  8000e78:	2b05      	cmp	r3, #5
  8000e7a:	f040 80c9 	bne.w	8001010 <displayLedMatrix+0x984>
@@ -1844,6 +1854,7 @@ void displayLedMatrix(int row, int col){
  8000ed8:	4819      	ldr	r0, [pc, #100]	; (8000f40 <displayLedMatrix+0x8b4>)
  8000eda:	f001 f84d 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8000ede:	683b      	ldr	r3, [r7, #0]
  8000ee0:	b25a      	sxtb	r2, r3
@@ -1989,7 +2000,8 @@ void displayLedMatrix(int row, int col){
  800100a:	4883      	ldr	r0, [pc, #524]	; (8001218 <displayLedMatrix+0xb8c>)
  800100c:	f000 ffb4 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 6){
+
+	if(row == 6){// enable row 6
  8001010:	687b      	ldr	r3, [r7, #4]
  8001012:	2b06      	cmp	r3, #6
  8001014:	f040 80c3 	bne.w	800119e <displayLedMatrix+0xb12>
@@ -2034,6 +2046,7 @@ void displayLedMatrix(int row, int col){
  8001072:	486a      	ldr	r0, [pc, #424]	; (800121c <displayLedMatrix+0xb90>)
  8001074:	f000 ff80 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8001078:	683b      	ldr	r3, [r7, #0]
  800107a:	b25a      	sxtb	r2, r3
@@ -2175,7 +2188,8 @@ void displayLedMatrix(int row, int col){
  8001198:	481f      	ldr	r0, [pc, #124]	; (8001218 <displayLedMatrix+0xb8c>)
  800119a:	f000 feed 	bl	8001f78 <HAL_GPIO_WritePin>
 	}
-	if(row == 7){
+
+	if(row == 7){// enable row 7
  800119e:	687b      	ldr	r3, [r7, #4]
  80011a0:	2b07      	cmp	r3, #7
  80011a2:	f040 80c9 	bne.w	8001338 <displayLedMatrix+0xcac>
@@ -2220,6 +2234,7 @@ void displayLedMatrix(int row, int col){
  8001200:	4806      	ldr	r0, [pc, #24]	; (800121c <displayLedMatrix+0xb90>)
  8001202:	f000 feb9 	bl	8001f78 <HAL_GPIO_WritePin>
 
+		// get bit by bit of buffer, then assign to ENM-PIN to control COL-PIN
 		HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, 1 - (col & shift));
  8001206:	683b      	ldr	r3, [r7, #0]
  8001208:	b25a      	sxtb	r2, r3
@@ -2394,7 +2409,7 @@ void updateLedMatrix(int index){
  8001370:	080013cd 	.word	0x080013cd
  8001374:	080013db 	.word	0x080013db
 	switch(index){
-	case 0:
+	case 0:// display row 0 of led matrix
 		displayLedMatrix(0, matrix_buffer[0]);
  8001378:	4b1e      	ldr	r3, [pc, #120]	; (80013f4 <updateLedMatrix+0xb0>)
  800137a:	781b      	ldrb	r3, [r3, #0]
@@ -2403,7 +2418,7 @@ void updateLedMatrix(int index){
  8001380:	f7ff f984 	bl	800068c <displayLedMatrix>
 		break;
  8001384:	e031      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 1:
+	case 1:// display row 1 of led matrix
 		displayLedMatrix(1, matrix_buffer[1]);
  8001386:	4b1b      	ldr	r3, [pc, #108]	; (80013f4 <updateLedMatrix+0xb0>)
  8001388:	785b      	ldrb	r3, [r3, #1]
@@ -2412,7 +2427,7 @@ void updateLedMatrix(int index){
  800138e:	f7ff f97d 	bl	800068c <displayLedMatrix>
 		break;
  8001392:	e02a      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 2:
+	case 2:// display row 2 of led matrix
 		displayLedMatrix(2, matrix_buffer[2]);
  8001394:	4b17      	ldr	r3, [pc, #92]	; (80013f4 <updateLedMatrix+0xb0>)
  8001396:	789b      	ldrb	r3, [r3, #2]
@@ -2421,7 +2436,7 @@ void updateLedMatrix(int index){
  800139c:	f7ff f976 	bl	800068c <displayLedMatrix>
 		break;
  80013a0:	e023      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 3:
+	case 3:// display row 3 of led matrix
 		displayLedMatrix(3, matrix_buffer[3]);
  80013a2:	4b14      	ldr	r3, [pc, #80]	; (80013f4 <updateLedMatrix+0xb0>)
  80013a4:	78db      	ldrb	r3, [r3, #3]
@@ -2430,7 +2445,7 @@ void updateLedMatrix(int index){
  80013aa:	f7ff f96f 	bl	800068c <displayLedMatrix>
 		break;
  80013ae:	e01c      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 4:
+	case 4:// display row 4 of led matrix
 		displayLedMatrix(4, matrix_buffer[4]);
  80013b0:	4b10      	ldr	r3, [pc, #64]	; (80013f4 <updateLedMatrix+0xb0>)
  80013b2:	791b      	ldrb	r3, [r3, #4]
@@ -2439,7 +2454,7 @@ void updateLedMatrix(int index){
  80013b8:	f7ff f968 	bl	800068c <displayLedMatrix>
 		break;
  80013bc:	e015      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 5:
+	case 5:// display row 5 of led matrix
 		displayLedMatrix(5, matrix_buffer[5]);
  80013be:	4b0d      	ldr	r3, [pc, #52]	; (80013f4 <updateLedMatrix+0xb0>)
  80013c0:	795b      	ldrb	r3, [r3, #5]
@@ -2448,7 +2463,7 @@ void updateLedMatrix(int index){
  80013c6:	f7ff f961 	bl	800068c <displayLedMatrix>
 		break;
  80013ca:	e00e      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 6:
+	case 6:// display row 6 of led matrix
 		displayLedMatrix(6, matrix_buffer[6]);
  80013cc:	4b09      	ldr	r3, [pc, #36]	; (80013f4 <updateLedMatrix+0xb0>)
  80013ce:	799b      	ldrb	r3, [r3, #6]
@@ -2457,7 +2472,7 @@ void updateLedMatrix(int index){
  80013d4:	f7ff f95a 	bl	800068c <displayLedMatrix>
 		break;
  80013d8:	e007      	b.n	80013ea <updateLedMatrix+0xa6>
-	case 7:
+	case 7:// display row 7 of led matrix
 		displayLedMatrix(7, matrix_buffer[7]);
  80013da:	4b06      	ldr	r3, [pc, #24]	; (80013f4 <updateLedMatrix+0xb0>)
  80013dc:	79db      	ldrb	r3, [r3, #7]
@@ -2532,17 +2547,16 @@ int main(void)
   setTimer4(1000);
  800142a:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800142e:	f000 f995 	bl	800175c <setTimer4>
+  while (1)
   {
-
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
-	if(timer3_flag == 1)
+	if(timer3_flag == 1)// control LED-RED and DOT-LED
  8001432:	4b25      	ldr	r3, [pc, #148]	; (80014c8 <main+0xd0>)
  8001434:	681b      	ldr	r3, [r3, #0]
  8001436:	2b01      	cmp	r3, #1
  8001438:	d10b      	bne.n	8001452 <main+0x5a>
-	{// control LED-RED and DOT-LED
+	{
 		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
  800143a:	2120      	movs	r1, #32
  800143c:	4823      	ldr	r0, [pc, #140]	; (80014cc <main+0xd4>)
@@ -2551,27 +2565,27 @@ int main(void)
  8001442:	2110      	movs	r1, #16
  8001444:	4821      	ldr	r0, [pc, #132]	; (80014cc <main+0xd4>)
  8001446:	f000 fdaf 	bl	8001fa8 <HAL_GPIO_TogglePin>
-		setTimer3(500);
- 800144a:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+		setTimer3(1000);
+ 800144a:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800144e:	f000 f96b 	bl	8001728 <setTimer3>
 	}
 
-	if(timer1_flag == 1)
+	if(timer1_flag == 1)// run time as a clock
  8001452:	4b1f      	ldr	r3, [pc, #124]	; (80014d0 <main+0xd8>)
  8001454:	681b      	ldr	r3, [r3, #0]
  8001456:	2b01      	cmp	r3, #1
  8001458:	d107      	bne.n	800146a <main+0x72>
-	{// run time as a clock
+	{
 		clock();
  800145a:	f7fe fe77 	bl	800014c <clock>
 		updateClockBuffer();
  800145e:	f7fe fea5 	bl	80001ac <updateClockBuffer>
-		setTimer1(500);
- 8001462:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+		setTimer1(1000);
+ 8001462:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8001466:	f000 f92b 	bl	80016c0 <setTimer1>
 	}
 
-	if(timer2_flag == 1)
+	if(timer2_flag == 1)// control 4 led 7-SEG
  800146a:	4b1a      	ldr	r3, [pc, #104]	; (80014d4 <main+0xdc>)
  800146c:	681b      	ldr	r3, [r3, #0]
  800146e:	2b01      	cmp	r3, #1
@@ -2598,7 +2612,7 @@ int main(void)
  8001492:	f000 f92f 	bl	80016f4 <setTimer2>
 	}
 
-	if(timer4_flag == 1)
+	if(timer4_flag == 1)// control led matrix
  8001496:	4b11      	ldr	r3, [pc, #68]	; (80014dc <main+0xe4>)
  8001498:	681b      	ldr	r3, [r3, #0]
  800149a:	2b01      	cmp	r3, #1
@@ -2623,7 +2637,7 @@ int main(void)
 		setTimer4(100);
  80014bc:	2064      	movs	r0, #100	; 0x64
  80014be:	f000 f94d 	bl	800175c <setTimer4>
-	if(timer3_flag == 1)
+	if(timer3_flag == 1)// control LED-RED and DOT-LED
  80014c2:	e7b6      	b.n	8001432 <main+0x3a>
  80014c4:	20000078 	.word	0x20000078
  80014c8:	20000068 	.word	0x20000068
@@ -2993,9 +3007,9 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 	...
 
 080016c0 <setTimer1>:
+int timer4_flag = 0;
+int timer4_counter = 0;
 
-int timer5_flag = 0;
-int timer5_counter = 0;
 
 //timer for update clockbuffer
 void setTimer1(int duration){

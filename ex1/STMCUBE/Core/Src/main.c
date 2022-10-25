@@ -328,49 +328,49 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-	int counter_7seg = 50;
-	int status_7seg = 0;
-	int counter_led_red = 100;
+int counter_7seg = 50;
+int status_7seg = 0;
+int counter_led_red = 100;
 
-	HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+	// control LED-RED blink
+	if(counter_led_red > 0) counter_led_red --;
+	if(counter_led_red <= 0)
 	{
-		// control LED-RED blink
-		if(counter_led_red > 0) counter_led_red --;
-		if(counter_led_red <= 0)
-		{
-			counter_led_red = 100;
-			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-		}
-
-		// control 2 led 7-SEG
-		if(counter_7seg > 0) counter_7seg --;
-		if(counter_7seg <= 0)
-		{
-			counter_7seg = 50;
-			switch (status_7seg)
-			{
-				case 0://turn on first 7-SEG led
-				{
-					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_SET);
-					display7SEG(1);
-					status_7seg = 1;
-					break;
-				}
-				case 1://turn on second 7-SEG led
-				{
-					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_RESET);
-					display7SEG(2);
-					status_7seg = 0;
-					break;
-				}
-				default:
-					break;
-			}
-		}
-
+		counter_led_red = 100;
+		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 	}
+
+	// control 2 led 7-SEG
+	if(counter_7seg > 0) counter_7seg --;
+	if(counter_7seg <= 0)
+	{
+		counter_7seg = 50;
+		switch (status_7seg)
+		{
+		case 0://turn on first 7-SEG led
+		{
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_SET);
+			display7SEG(1);
+			status_7seg = 1;
+			break;
+		}
+		case 1://turn on second 7-SEG led
+		{
+			HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_RESET);
+			display7SEG(2);
+			status_7seg = 0;
+			break;
+		}
+		default:
+			break;
+		}
+	}
+
+}
 /* USER CODE END 4 */
 
 /**

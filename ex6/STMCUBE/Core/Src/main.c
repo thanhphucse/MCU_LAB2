@@ -148,7 +148,7 @@ what happens after that and why?
 3. if in line 121 of the code above is changed to setTimer0(10),
 what is changed compared to 2 first questions and why?
 
-	The LED-RED blink every second.
+	The LED-RED will blink every second.
 	because, in function setTimer1(), timer1_counter = duration/TIMER_CYCLE = 10/10 = 1
 	So in function timeRun(), condition "timer1_counter > 0" is true.
 	So timer1_flag can update into 1.

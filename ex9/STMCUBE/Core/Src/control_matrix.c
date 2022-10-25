@@ -238,6 +238,10 @@ void displayLedMatrix(int row, int col){
 
 }
 
+
+int index_led_matrix = 0;
+uint8_t matrix_buffer [8] = {0x18,0x24,0x42,0x42,0x7e,0x42,0x42,0x42};
+
 void updateLedMatrix(int index){
 	switch(index){
 	case 0:// display row 0 of led matrix

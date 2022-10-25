@@ -6,7 +6,7 @@
  */
 #include "software_timer.h"
 
-int TICK = 10;
+int TICK = 10;// time cycle
 
 // timer1 is used to run time as a clock
 int timer1_flag = 0;

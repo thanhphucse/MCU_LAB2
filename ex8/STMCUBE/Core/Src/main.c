@@ -18,6 +18,8 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <control_clock_buffer.h>
+#include <control_led_7SEG.h>
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -25,8 +27,6 @@
 #include "software_timer.h"
 #include "clock.h"
 #include "global.h"
-#include "control_buffer.h"
-#include "control_led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

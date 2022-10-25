@@ -400,7 +400,7 @@ HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 	if(counter_7seg > 0) counter_7seg --;
 	if(counter_7seg <= 0)
 	{
-		counter_7seg = 25;
+		counter_7seg = 25;//Change the period of invoking to set frequency 1 Hz
 		update7SEG(index_led++);
 	}
 
