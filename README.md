@@ -13,6 +13,7 @@
     delay is small enough, it seems that all LEDs are enabling.
     
     Implement the circuit simulation in Proteus with two 7-SEGMENT LEDs as following:
+    
 ![image](https://user-images.githubusercontent.com/106461205/236117867-0457a46d-dc4c-4884-9fc4-831d7dda71d7.png)
 
 2. Exercise 2
@@ -30,46 +31,27 @@
     Implement a function named update7SEG(int index). An array of 4 integer numbers are declared in this case. 
     The code skeleton in this exercise is presented as following:
     
+    
     const int MAX_LED = 4;
-    
     int index_led = 0;
-    
     int led_buffer [4] = {1 , 2 , 3 , 4};
-
     void update7SEG ( int index ) {
-    
         switch ( index ) {
-        
             case 0:
-            
                 // Display the first 7 SEG with led_buffer [0]
-                
                 break ;
-                
             case 1:
-            
                 // Display the second 7 SEG with led_buffer [1]
-                
                 break ;
-                
             case 2:
-            
                 // Display the third 7 SEG with led_buffer [2]
-                
                 break ;
-                
             case 3:
-            
-                // Display the forth 7 SEG with led_buffer [3]
-                
+                // Display the forth 7 SEG with led_buffer [3]                
                 break ;
-                
-            default :
-            
-                break ;
-                
-        }
-        
+            default :            
+                break ;                
+        }        
     }
 
 4. Exercise 4
