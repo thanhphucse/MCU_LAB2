@@ -94,31 +94,30 @@
     
     Implement the function, updateLEDMatrix(int index), which is similarly to 4 seven led segments.
     ```cpp
-const int MAX_LED_MATRIX = 8;
-int index_led_matrix = 0;
-uint8_t matrix_buffer [8] = {0 x01 , 0 x02 , 0 x03 , 0 x04 , 0 x05 , 0
-x06 , 0 x07 , 0 x08 };
-void updateLEDMatrix (int index ) {
-switch ( index ) {
-case 0:
-break ;
-case 1:
-break ;
-case 2:
-break ;
-case 3:
-break ;
-case 4:
-break ;
-case 5:
-break ;
-case 6:
-break ;
-case 7:
-break ;
-default :
-break ;
-}
-}
+    const int MAX_LED_MATRIX = 8;
+    int index_led_matrix = 0;
+    uint8_t matrix_buffer [8] = {0 x01 , 0 x02 , 0 x03 , 0 x04 , 0 x05 , 0x06 , 0 x07 , 0 x08 };
+    void updateLEDMatrix (int index ) {
+        switch ( index ) {
+        case 0:
+            break ;
+        case 1:
+            break ;
+        case 2:
+            break ;
+        case 3:
+            break ;
+        case 4:
+            break ;
+        case 5:
+            break ;
+        case 6:
+            break ;
+        case 7:
+            break ;
+        default :
+            break ;
+        }
+    }
     ```
 
