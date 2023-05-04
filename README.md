@@ -63,41 +63,25 @@
  
     Implement a digital clock with hour and minute information displayed by 2 seven segment LEDs. The code skeleton
     in the main function is presented as follows:
-    
+    ```cpp
     int hour = 15 , minute = 8 , second = 50;
-    
-    while (1) {
-      
-        second ++;
-        
-        if ( second >= 60) {
-    
-            second = 0;
-            
-            7 minute ++;
-            
+    while (1) {      
+        second ++;       
+        if ( second >= 60) {    
+            second = 0;            
+            7 minute ++;            
         }
-
-        if( minute >= 60) {
-        
-            minute = 0;
-            
+        if( minute >= 60) {        
+            minute = 0;            
             hour ++;
-
-        }
-        
-        if( hour >=24) {
-        
-        hour = 0;
-        
-        }
-        
-        updateClockBuffer () ;
-        
-        HAL_Delay (1000) ;
-        
+        }        
+        if( hour >=24) {        
+            hour = 0;        
+        }        
+        updateClockBuffer () ;       
+        HAL_Delay (1000) ;        
     }
-    
+    ```
     
 
 
