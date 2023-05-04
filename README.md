@@ -64,7 +64,7 @@
     Implement a digital clock with hour and minute information displayed by 2 seven segment LEDs. The code skeleton
     in the main function is presented as follows:
 ```
-    ```cpp
+```cpp
     int hour = 15 , minute = 8 , second = 50;
     while (1) {      
         second ++;       
@@ -82,7 +82,7 @@
         updateClockBuffer () ;       
         HAL_Delay (1000) ;        
     }
-    ```
+```
     
 9. Exercise 9
 ```    
@@ -97,7 +97,7 @@
     
     Implement the function, updateLEDMatrix(int index), which is similarly to 4 seven led segments.
 ```
-    ```cpp
+```cpp
     const int MAX_LED_MATRIX = 8;
     int index_led_matrix = 0;
     uint8_t matrix_buffer [8] = {0 x01 , 0 x02 , 0 x03 , 0 x04 , 0 x05 , 0x06 , 0 x07 , 0 x08 };
@@ -123,7 +123,7 @@
             break ;
         }
     }
-    ```
+```
 10. Exercise 10
 ```
     Create an animation on LED matrix, for example, the character is shifted to the left.
