@@ -31,6 +31,7 @@
     Implement a function named update7SEG(int index). An array of 4 integer numbers are declared in this case. 
     The code skeleton in this exercise is presented as following:
     
+```
     const int MAX_LED = 4;
     int index_led = 0;
     int led_buffer [4] = {1 , 2 , 3 , 4};
@@ -52,7 +53,7 @@
                 break ;                
         }        
     }
-
+```
 4. Exercise 4
 
     Change the period of invoking update7SEG function in order to set the frequency of 4 even segment LEDs to 1Hz.
